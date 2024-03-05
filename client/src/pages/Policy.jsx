@@ -4,7 +4,7 @@ import Layout from "../components/Layout/Layout";
 const Policy = () => {
   return (
     <Layout>
-      <h1>Privacy</h1>
+      <h1>Privacy Policy Page</h1>
     </Layout>
   );
 };
