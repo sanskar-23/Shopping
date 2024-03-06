@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../../styles/AuthStyles.css";
 import Layout from "../../components/Layout/Layout";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -37,9 +38,9 @@ const Register = () => {
 
   return (
     <Layout title={"Register Page - Shopping"}>
-      <div className="register">
-        <h1>Register Page</h1>
+      <div className="form-container" style={{ minHeight: "90vh" }}>
         <form onSubmit={handleSubmit}>
+          <h4 className="title">Register Page</h4>
           <div className="mb-3">
             <input
               value={name}
@@ -97,7 +98,7 @@ const Register = () => {
             />
           </div>
           <button type="submit" className="btn btn-primary">
-            Submit
+            Register
           </button>
         </form>
       </div>

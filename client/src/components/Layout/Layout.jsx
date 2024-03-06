@@ -19,13 +19,12 @@ const Layout = ({ children, title, description, keywords, author }) => {
         <Toaster
           toastOptions={{
             className: "",
-            duration: 1800,
+            duration: 1600,
             style: {
               background: "#363636",
               color: "#fff",
             },
             success: {
-              // duration: 1800,
               theme: {
                 primary: "green",
                 secondary: "black",
