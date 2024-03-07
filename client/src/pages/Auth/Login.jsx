@@ -4,10 +4,13 @@ import Layout from "../../components/Layout/Layout";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useAuth } from "../../context/auth";
+import { RiLoginCircleFill } from "react-icons/ri";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -21,21 +24,29 @@ const Login = () => {
         setTimeout(() => {
           toast.success(res.data.message);
         }, 500);
+        setAuth({
+          ...auth,
+          user: res.data.user,
+          token: res.data.token,
+        });
+        localStorage.setItem("auth", JSON.stringify(res.data));
         navigate("/");
       } else {
         toast.error(res.data.message);
       }
     } catch (error) {
-      console.log(error);
       toast.error("Email is not registered");
     }
   };
 
   return (
-    <Layout title={"Register Page - Shopping"}>
+    <Layout title={"Login Page - Shopping"}>
       <div className="form-container" style={{ minHeight: "90vh" }}>
         <form onSubmit={handleSubmit}>
-          <h4 className="title">Login </h4>
+          <h4 className="title">
+            <RiLoginCircleFill className="logo" />
+            Login
+          </h4>
           <div className="mb-3">
             <input
               value={email}
