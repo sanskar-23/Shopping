@@ -5,35 +5,29 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 
-const Register = () => {
-  const [name, setName] = useState("");
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/v1/auth/register", {
-        name,
+      const res = await axios.post("/api/v1/auth/login", {
         email,
         password,
-        phone,
-        address,
       });
       if (res && res.data.success) {
         setTimeout(() => {
           toast.success(res.data.message);
         }, 500);
-        navigate("/login");
+        navigate("/");
       } else {
         toast.error(res.data.message);
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something Went Wrong");
+      toast.error("Email is not registered");
     }
   };
 
@@ -41,19 +35,7 @@ const Register = () => {
     <Layout title={"Register Page - Shopping"}>
       <div className="form-container" style={{ minHeight: "90vh" }}>
         <form onSubmit={handleSubmit}>
-          <h4 className="title">Register</h4>
-          <div className="mb-3">
-            <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              type="text"
-              className="form-control"
-              id="exampleInputEmail1"
-              placeholder="Enter Your Name"
-              required
-              autoFocus
-            />
-          </div>
+          <h4 className="title">Login </h4>
           <div className="mb-3">
             <input
               value={email}
@@ -63,6 +45,7 @@ const Register = () => {
               id="exampleInputEmail2"
               placeholder="Enter Your Email"
               required
+              autoFocus
             />
           </div>
           <div className="mb-3">
@@ -76,30 +59,8 @@ const Register = () => {
               required
             />
           </div>
-          <div className="mb-3">
-            <input
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              type="text"
-              className="form-control"
-              id="exampleInputPassword2"
-              placeholder="Enter your Phone"
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <input
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              type="text"
-              className="form-control"
-              id="exampleInputPassword3"
-              placeholder="Enter Your Address"
-              required
-            />
-          </div>
           <button type="submit" className="btn btn-primary">
-            Register
+            Login
           </button>
         </form>
       </div>
@@ -107,4 +68,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
