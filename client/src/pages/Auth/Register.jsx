@@ -4,6 +4,7 @@ import Layout from "../../components/Layout/Layout";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { RiLoginCircleFill } from "react-icons/ri";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -41,7 +42,10 @@ const Register = () => {
     <Layout title={"Register Page - Shopping"}>
       <div className="form-container" style={{ minHeight: "90vh" }}>
         <form onSubmit={handleSubmit}>
-          <h4 className="title">Register</h4>
+          <h4 className="title">
+            <RiLoginCircleFill className="logo" />
+            Register
+          </h4>
           <div className="mb-3">
             <input
               value={name}
