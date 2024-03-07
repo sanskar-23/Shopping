@@ -4,7 +4,12 @@ import Layout from "../../components/Layout/Layout";
 const Dashboard = () => {
   return (
     <Layout title={"Dashboard - Shopping"}>
-      <h1>Dashboard Page</h1>
+      <h2>Hello</h2>
+      <h2>Hello</h2>
+      <h2>Hello</h2>
+      <h2>Hello</h2>
+      <h2>Hello</h2>
+      <h2>Hello</h2>
     </Layout>
   );
 };
