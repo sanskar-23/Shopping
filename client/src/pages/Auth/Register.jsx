@@ -12,6 +12,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [answer, setAnswer] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -23,6 +24,7 @@ const Register = () => {
         password,
         phone,
         address,
+        answer,
       });
       if (res && res.data.success) {
         setTimeout(() => {
@@ -52,7 +54,7 @@ const Register = () => {
               onChange={(e) => setName(e.target.value)}
               type="text"
               className="form-control"
-              id="exampleInputEmail1"
+              id="exampleInputEmail7"
               placeholder="Enter Your Name"
               required
               autoFocus
@@ -64,7 +66,7 @@ const Register = () => {
               onChange={(e) => setEmail(e.target.value)}
               type="email"
               className="form-control"
-              id="exampleInputEmail2"
+              id="exampleInputEmail6"
               placeholder="Enter Your Email"
               required
             />
@@ -99,6 +101,17 @@ const Register = () => {
               className="form-control"
               id="exampleInputPassword3"
               placeholder="Enter Your Address"
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <input
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
+              type="text"
+              className="form-control"
+              id="exampleInputPassword4"
+              placeholder="What is Your Favourite Sport"
               required
             />
           </div>

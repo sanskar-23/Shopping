@@ -9,7 +9,7 @@ const Pagenotfound = () => {
         <h1 className="pnf-title">404</h1>
         <h2 className="pnf-heading">Oops ! Page Not Found</h2>
         <Link to="/">
-          <button type="button" class="btn btn-outline-dark">
+          <button type="button" className="btn btn-outline-dark">
             Go Back
           </button>
         </Link>
