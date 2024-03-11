@@ -11,6 +11,7 @@ const CategoryForm = ({ handleSubmit, value, setValue }) => {
             placeholder="Enter New Category"
             value={value}
             onChange={(e) => setValue(e.target.value)}
+            required
           />
         </div>
         <button type="submit" className="btn btn-primary">
