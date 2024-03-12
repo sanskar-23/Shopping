@@ -63,7 +63,7 @@ const CreateCategory = () => {
         setVisible(false);
         getAllCategory();
       } else {
-        toast.error(data.message);
+        toast.error(data?.message);
       }
     } catch (error) {
       console.log(error);
@@ -81,7 +81,7 @@ const CreateCategory = () => {
         toast.success(`Category Deleted`);
         getAllCategory();
       } else {
-        toast.error(data.message);
+        toast.error(data?.message);
       }
     } catch (error) {
       console.log(error);
@@ -131,7 +131,7 @@ const CreateCategory = () => {
                           </button>
                           <button
                             className="btn btn-sm btn-danger"
-                            onClick={() => handleDelete(c._id)}
+                            onClick={() => handleDelete(c?._id)}
                           >
                             Delete
                           </button>
@@ -144,7 +144,7 @@ const CreateCategory = () => {
             <Modal
               onCancel={() => setVisible(false)}
               footer={null}
-              visible={visible}
+              open={visible}
             >
               <CategoryForm
                 value={updatedName}
