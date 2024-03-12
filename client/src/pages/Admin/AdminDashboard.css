@@ -1,0 +1,22 @@
+.dashboard-card {
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Center the content horizontally */
+  transition: box-shadow 0.3s ease; /* Add transition for hover effect */
+}
+
+.dashboard-heading {
+  color: #333;
+}
+
+.admin-details p {
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.dashboard-card:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Add hover effect */
+}

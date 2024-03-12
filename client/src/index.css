@@ -105,3 +105,16 @@ font-family: "Poppins", sans-serif; */
   align-items: center;
   justify-content: center;
 }
+
+.product-link {
+  text-decoration: none !important;
+  color: black !important;
+}
+.product-link .card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-link:hover .card {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

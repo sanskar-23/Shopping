@@ -99,6 +99,7 @@ const CreateProduct = () => {
                     accept="image/*"
                     onChange={(e) => setPhoto(e.target.files[0])}
                     hidden
+                    required
                   />
                 </label>
               </div>
@@ -121,6 +122,7 @@ const CreateProduct = () => {
                   placeholder="write a name"
                   className="form-control"
                   onChange={(e) => setName(e.target.value)}
+                  required
                 />
               </div>
               <div className="mb-3">

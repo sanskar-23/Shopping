@@ -90,23 +90,23 @@ const CreateCategory = () => {
 
   return (
     <Layout title={"Dashboard - Create Category"}>
-      <div className="container-fluid m-3 p-3">
+      <div className="container-fluid mt-3">
         <div className="row">
           <div className="col-md-3">
             <AdminMenu />
           </div>
           <div className="col-md-9">
-            <h1>Manage Category</h1>
-            <div className="p-3 w-50">
+            <h1 className="mb-4">Manage Category</h1>
+            <div className="d-flex justify-content-between align-items-center mb-3">
               <CategoryForm
                 handleSubmit={handleSubmit}
                 value={name}
                 setValue={setName}
               />
             </div>
-            <div className="w-75">
-              <table className="table">
-                <thead>
+            <div className="table-responsive">
+              <table className="table table-striped table-bordered">
+                <thead className="thead-dark">
                   <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Actions</th>
@@ -115,30 +115,28 @@ const CreateCategory = () => {
                 <tbody>
                   {categories &&
                     categories.length > 0 &&
-                    categories?.map((c, index) => (
-                      <>
-                        <tr key={c?._id || index}>
-                          <td>{c?.name}</td>
-                          <td>
-                            <button
-                              className="btn btn-primary ms-2"
-                              onClick={() => {
-                                setVisible(true);
-                                setUpdatedName(c.name);
-                                setSelected(c);
-                              }}
-                            >
-                              Edit
-                            </button>
-                            <button
-                              className="btn btn-danger ms-2"
-                              onClick={() => handleDelete(c._id)}
-                            >
-                              Delete
-                            </button>
-                          </td>
-                        </tr>
-                      </>
+                    categories.map((c, index) => (
+                      <tr key={c?._id || index}>
+                        <td>{c?.name}</td>
+                        <td>
+                          <button
+                            className="btn btn-sm btn-primary me-2"
+                            onClick={() => {
+                              setVisible(true);
+                              setUpdatedName(c.name);
+                              setSelected(c);
+                            }}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="btn btn-sm btn-danger"
+                            onClick={() => handleDelete(c._id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
                     ))}
                 </tbody>
               </table>
@@ -146,7 +144,7 @@ const CreateCategory = () => {
             <Modal
               onCancel={() => setVisible(false)}
               footer={null}
-              open={visible}
+              visible={visible}
             >
               <CategoryForm
                 value={updatedName}
