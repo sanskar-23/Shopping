@@ -136,10 +136,16 @@ const HomePage = () => {
                     />
                     <div className="card-body">
                       <h5 className="card-title">{p?.name}</h5>
+                      <h5 className="card-title card-price">
+                        {p?.price.toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "USD",
+                        })}
+                      </h5>
                       <p className="card-text">
                         {truncateDescription(p?.description, 100)}
                       </p>
-                      <p className="card-text">${p?.price}</p>
+
                       <button className="btn btn-info m-1">More Details</button>
                       <button className="btn btn-dark ms-2">ADD TO CART</button>
                     </div>

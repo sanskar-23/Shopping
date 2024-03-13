@@ -184,3 +184,8 @@ font-family: "Poppins", sans-serif; */
   margin-right: 8px;
   vertical-align: middle;
 }
+
+.card-price {
+  color: green;
+  font-weight: bold;
+}
