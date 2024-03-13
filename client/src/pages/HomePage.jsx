@@ -31,7 +31,7 @@ const HomePage = () => {
   }, []);
 
   // get All products
-  const getAllproducts = async () => {
+  const getAllProducts = async () => {
     try {
       const { data } = await axios.get("/api/v1/product/get-product");
       setProducts(data?.products);
@@ -57,13 +57,14 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    if (!checked.length || !radio.length) getAllproducts();
+    if (!checked.length || !radio.length) getAllProducts();
   }, [checked.length, radio.length]);
 
   useEffect(() => {
     if (checked.length || radio.length) filterProduct();
   }, [checked, radio]);
 
+  //get filterd product
   const filterProduct = async () => {
     try {
       const { data } = await axios.post("/api/v1/product/product-filters", {
