@@ -57,8 +57,24 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    getAllproducts();
-  }, []);
+    if (!checked.length || !radio.length) getAllproducts();
+  }, [checked.length, radio.length]);
+
+  useEffect(() => {
+    if (checked.length || radio.length) filterProduct();
+  }, [checked, radio]);
+
+  const filterProduct = async () => {
+    try {
+      const { data } = await axios.post("/api/v1/product/product-filters", {
+        checked,
+        radio,
+      });
+      setProducts(data?.products);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Layout>
@@ -98,6 +114,14 @@ const HomePage = () => {
                 ))}
               </Radio.Group>
             </div>
+            <div className="d-flex flex-column">
+              <div
+                className="btn btn-danger mt-3 mb-3"
+                onClick={() => window.location.reload()}
+              >
+                RESET FILTERS
+              </div>
+            </div>
           </div>
           <div className="col-md-9">
             <h1 className="text-center"> All Products List</h1>
@@ -115,6 +139,7 @@ const HomePage = () => {
                       <p className="card-text">
                         {truncateDescription(p?.description, 100)}
                       </p>
+                      <p className="card-text">${p?.price}</p>
                       <button className="btn btn-info m-1">More Details</button>
                       <button className="btn btn-dark ms-2">ADD TO CART</button>
                     </div>
