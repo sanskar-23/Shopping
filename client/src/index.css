@@ -118,3 +118,26 @@ font-family: "Poppins", sans-serif; */
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+/* 
+ ALL products css */
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 20px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.card-img-top {
+  object-fit: contain; /* Ensure the entire image is visible */
+  height: 200px; /* Adjust height as needed */
+  width: 100%; /* Ensure full width */
+  display: block;
+  margin: auto; /* Center the image horizontally */
+}
