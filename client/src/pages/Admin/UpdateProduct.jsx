@@ -90,6 +90,19 @@ const UpdateProduct = () => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      const { data } = axios.delete(`/api/v1/product/delete-product/${id}`);
+      setTimeout(() => {
+        toast.success("Product Deleted Successfully");
+      }, 500);
+      navigate("/dashboard/admin/products");
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+  };
+
   return (
     <Layout title={"Dashboard - Update Product"}>
       <div className="container-fluid mt-3">
@@ -208,6 +221,9 @@ const UpdateProduct = () => {
               <div className="mb-3">
                 <button className="btn btn-primary" onClick={handleUpdate}>
                   UPDATE PRODUCT
+                </button>
+                <button className="btn btn-danger m-2" onClick={handleDelete}>
+                  DELETE PRODUCT
                 </button>
               </div>
             </div>
