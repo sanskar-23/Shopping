@@ -74,7 +74,6 @@ const HomePage = () => {
       toast.error("Something Went Wrong");
     }
   };
-  console.log(products);
 
   const truncateDescription = (description, maxLength) => {
     if (description.length > maxLength) {
