@@ -4,11 +4,12 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -162,7 +163,7 @@ const HomePage = () => {
             <h1 className="text-center"> All Products List</h1>
             <div className="grid-container">
               {products?.map((p) => (
-                <Link key={p._id} className="product-link">
+                <div className="product-link" key={p._id}>
                   <div className="card">
                     <img
                       src={`/api/v1/product/product-photo/${p?._id}`}
@@ -181,11 +182,16 @@ const HomePage = () => {
                         {truncateDescription(p?.description, 100)}
                       </p>
 
-                      <button className="btn btn-info m-1">More Details</button>
+                      <button
+                        className="btn btn-info m-1"
+                        onClick={() => navigate(`/product/${p?.slug}`)}
+                      >
+                        More Details
+                      </button>
                       <button className="btn btn-dark ms-2">ADD TO CART</button>
                     </div>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>

@@ -1,0 +1,37 @@
+.product-details-container {
+  background-color: #f8f9fa; /* Faded background color */
+  padding: 20px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.product-details {
+  background-color: #fff; /* White background for product details */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+  transition: box-shadow 0.3s ease; /* Smooth transition for box shadow */
+}
+
+.product-details h1,
+.product-details h2 {
+  font-family: "Arial", sans-serif; /* Update font family */
+  color: #333; /* Dark text color */
+  transition: color 0.3s ease; /* Smooth transition for text color */
+}
+
+.btn-hover {
+  transition: background-color 0.3s ease; /* Smooth transition for button background color */
+}
+
+.hover-zoom {
+  transition: transform 0.3s ease; /* Smooth transition for image zoom */
+}
+
+.btn-hover:hover {
+  background-color: #0069d9; /* Darker background color on hover */
+}
+
+.hover-zoom:hover {
+  transform: scale(1.05); /* Zoom effect on image hover */
+}

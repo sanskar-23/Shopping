@@ -117,6 +117,7 @@ font-family: "Poppins", sans-serif; */
 .product-link:hover .card {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 /* ALL products css */
