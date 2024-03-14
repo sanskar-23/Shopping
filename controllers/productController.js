@@ -188,12 +188,53 @@ export const productFiltersController = async (req, res) => {
       success: true,
       products,
     });
-    console.log(args);
   } catch (error) {
     console.log(error);
     res.status(400).send({
       success: false,
       message: "Error WHile Filtering Products",
+      error,
+    });
+  }
+};
+
+export const productCountController = async (req, res) => {
+  try {
+    const total = await productModel.find({}).estimatedDocumentCount();
+    res.status(200).send({
+      success: true,
+      total,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in product Count",
+      error,
+    });
+  }
+};
+
+export const productListController = async (req, res) => {
+  try {
+    const PerPage = 6;
+    const page = req.params.page ? req.params.page : 1;
+    const products = await productModel
+      .find({})
+      .select("-photo")
+      .skip((page - 1) * PerPage)
+      .limit(PerPage)
+      .sort({ createdAt: -1 });
+    res.status(200).send({
+      success: true,
+      message: "List of Products",
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error in Per Page Count",
       error,
     });
   }

@@ -13,6 +13,9 @@ const HomePage = () => {
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   // get all categories
   const getAllCategory = async () => {
@@ -26,20 +29,52 @@ const HomePage = () => {
     }
   };
 
+  // get total count of products
+  const getTotal = async () => {
+    try {
+      const { data } = await axios.get("/api/v1/product/product-count");
+      setTotal(data?.total);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (page === 1) return;
+    loadMore();
+  }, [page]);
+
+  const loadMore = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(`/api/v1/product/product-list/${page}`);
+      setLoading(false);
+      setProducts([...products, ...data?.products]);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getAllCategory();
+    getTotal();
   }, []);
 
-  // get All products
+  // get All products (which is 6) for page 1
   const getAllProducts = async () => {
     try {
-      const { data } = await axios.get("/api/v1/product/get-product");
+      setLoading(true);
+      const { data } = await axios.get(`/api/v1/product/product-list/${page}`);
+      setLoading(false);
       setProducts(data?.products);
     } catch (error) {
       console.log(error);
-      toast.error("Success Went Wrong");
+      setLoading(false);
+      toast.error("Something Went Wrong");
     }
   };
+  console.log(products);
 
   const truncateDescription = (description, maxLength) => {
     if (description.length > maxLength) {
@@ -154,6 +189,19 @@ const HomePage = () => {
                 </Link>
               ))}
             </div>
+          </div>
+          <div className="mt-3 text-center mb-3">
+            {products && products.length < total && (
+              <button
+                className="btn btn-warning"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setPage(page + 1);
+                }}
+              >
+                {loading ? "Loading..." : "Loadmore"}
+              </button>
+            )}
           </div>
         </div>
       </div>
