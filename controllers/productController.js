@@ -1,5 +1,6 @@
 import slugify from "slugify";
 import productModel from "../models/productModel.js";
+import categoryModel from "../models/categoryModel.js";
 import fs from "fs";
 
 // For Creating Product API
@@ -282,6 +283,28 @@ export const relatedProductController = async (req, res) => {
     res.status(400).send({
       success: false,
       message: "Error in Getting Related Products",
+    });
+  }
+};
+
+export const productCategoryController = async (req, res) => {
+  try {
+    const category = await categoryModel.find({ slug: req.params.slug });
+    const products = await productModel
+      .find({ category })
+      .populate("category")
+      .select("-photo");
+    res.status(200).send({
+      success: true,
+      category,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      error,
+      message: "Error in Getting Products",
     });
   }
 };
