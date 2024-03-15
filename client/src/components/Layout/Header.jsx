@@ -41,16 +41,12 @@ const Header = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink to={"/"} className="nav-link" activeClassName="active">
+              <NavLink to={"/"} className="nav-link ">
                 Home
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink
-                to={"/category"}
-                className="nav-link"
-                activeClassName="active"
-              >
+              <NavLink to={"/category"} className="nav-link ">
                 Category
               </NavLink>
             </li>
@@ -106,11 +102,7 @@ const Header = () => {
               </>
             )}
             <li className="nav-item">
-              <NavLink
-                to={"/cart"}
-                className="nav-link"
-                activeClassName="active"
-              >
+              <NavLink to={"/cart"} className="nav-link">
                 <span className="me-1">Cart</span>
                 <span className="badge bg-secondary">0</span>
               </NavLink>

@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../components/Layout/Layout";
 import { useSearch } from "../context/Search";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./NoProductsFound.css";
 import { TbError404Off } from "react-icons/tb";
 
@@ -14,6 +14,7 @@ const Search = () => {
   };
 
   const [values, setValues] = useSearch();
+  const navigate = useNavigate();
   return (
     <Layout title={"Search Results"}>
       <div className="container">
@@ -38,7 +39,7 @@ const Search = () => {
           </h6>
           <div className="grid-container">
             {values?.results?.map((p) => (
-              <Link key={p._id} className="product-link">
+              <div key={p._id} className="product-link">
                 <div className="card">
                   <img
                     src={`/api/v1/product/product-photo/${p?._id}`}
@@ -57,11 +58,16 @@ const Search = () => {
                       {truncateDescription(p?.description, 100)}
                     </p>
 
-                    <button className="btn btn-info m-1">More Details</button>
+                    <button
+                      className="btn btn-info m-1"
+                      onClick={() => navigate(`/product/${p?.slug}`)}
+                    >
+                      More Details
+                    </button>
                     <button className="btn btn-dark ms-2">ADD TO CART</button>
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
