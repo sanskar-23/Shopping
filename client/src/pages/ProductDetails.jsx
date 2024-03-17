@@ -3,12 +3,15 @@ import Layout from "../components/Layout/Layout.jsx";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "./ProductDetails.css";
+import { useCart } from "../context/cart.js";
+import toast from "react-hot-toast";
 
 const ProductDetails = () => {
   const navigate = useNavigate();
   const params = useParams();
   const [product, setProduct] = useState({});
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [cart, setCart] = useCart();
 
   useEffect(() => {
     if (params?.slug) getProduct();
@@ -102,7 +105,17 @@ const ProductDetails = () => {
                         >
                           More Details
                         </button>
-                        <button className="btn btn-dark ms-2">
+                        <button
+                          className="btn btn-dark ms-2"
+                          onClick={() => {
+                            setCart([...cart, p]);
+                            localStorage.setItem(
+                              "cart",
+                              JSON.stringify([...cart, p])
+                            );
+                            toast.success("Item Added to Cart");
+                          }}
+                        >
                           ADD TO CART
                         </button>
                       </div>

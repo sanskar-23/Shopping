@@ -4,6 +4,8 @@ import { useSearch } from "../context/Search";
 import { Link, useNavigate } from "react-router-dom";
 import "./NoProductsFound.css";
 import { TbError404Off } from "react-icons/tb";
+import { useCart } from "../context/cart";
+import toast from "react-hot-toast";
 
 const Search = () => {
   const truncateDescription = (description, maxLength) => {
@@ -14,6 +16,7 @@ const Search = () => {
   };
 
   const [values, setValues] = useSearch();
+  const [cart, setCart] = useCart();
   const navigate = useNavigate();
   return (
     <Layout title={"Search Results"}>
@@ -64,7 +67,19 @@ const Search = () => {
                     >
                       More Details
                     </button>
-                    <button className="btn btn-dark ms-2">ADD TO CART</button>
+                    <button
+                      className="btn btn-dark ms-2"
+                      onClick={() => {
+                        setCart([...cart, p]);
+                        localStorage.setItem(
+                          "cart",
+                          JSON.stringify([...cart, p])
+                        );
+                        toast.success("Item Added to Cart");
+                      }}
+                    >
+                      ADD TO CART
+                    </button>
                   </div>
                 </div>
               </div>
