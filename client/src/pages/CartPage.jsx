@@ -121,6 +121,38 @@ const CartPage = () => {
               <p>Total | Checkout | Payment</p>
               <hr />
               <h4>Total : {totalPrice()}</h4>
+              {auth?.user?.address ? (
+                <>
+                  <div className="mb-3">
+                    <h4>Current Address</h4>
+                    <h5>{auth?.user?.address}</h5>
+                    <button
+                      className="btn btn-outline-warning"
+                      onClick={() => navigate("/dashboard/user/profile")}
+                    >
+                      Update Address
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="mb-3">
+                  {auth?.token ? (
+                    <button
+                      className="btn btn-outline-warning"
+                      onClick={() => navigate("/dashboard/user/profile")}
+                    >
+                      Update Address
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-warning"
+                      onClick={() => navigate("/login", { state: "/cart" })}
+                    >
+                      Login To Checkout
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           )}
         </div>

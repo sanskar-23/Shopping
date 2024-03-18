@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../components/Layout/Layout";
 import { useSearch } from "../context/Search";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./NoProductsFound.css";
 import { TbError404Off } from "react-icons/tb";
 import { useCart } from "../context/cart";
