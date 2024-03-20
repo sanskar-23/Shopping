@@ -75,7 +75,9 @@ const CartPage = () => {
       localStorage.removeItem("cart");
       setCart([]);
       navigate("/dashboard/user/orders");
-      toast.success("Payment Completed Successfully ");
+      setTimeout(() => {
+        toast.success("Payment Completed Successfully ");
+      }, 800);
     } catch (error) {
       console.log(error);
       setLoading(false);

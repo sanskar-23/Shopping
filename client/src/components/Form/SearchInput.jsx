@@ -28,8 +28,10 @@ const SearchInput = () => {
           placeholder="Search"
           aria-label="Search"
           value={values.keyword}
+          id="name"
           onChange={(e) => setValues({ ...values, keyword: e.target.value })}
           required
+          autoComplete="search"
         />
         <button className="btn btn-outline-dark" type="submit">
           Search

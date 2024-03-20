@@ -54,7 +54,7 @@ const Categories = () => {
   return (
     <Layout title={"All Categories"}>
       <div
-        className="categories-container"
+        className="categories-container mt-4"
         style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
       >
         {categories.map((c) => (

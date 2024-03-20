@@ -7,11 +7,14 @@ import Layout from "../../components/Layout/Layout";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getAllProducts = async () => {
     try {
+      setLoading(true);
       const { data } = await axios.get("/api/v1/product/get-product");
       setProducts(data?.products);
+      setLoading(false);
     } catch (error) {
       console.log(error);
       toast.error("Something Went Wrong");
@@ -39,27 +42,39 @@ const Products = () => {
           <div className="col-md-9">
             <h1 className="text-center"> All Products List</h1>
             <div className="grid-container">
-              {products?.map((p) => (
-                <Link
-                  to={`/dashboard/admin/product/${p?.slug}`}
-                  key={p._id}
-                  className="product-link"
-                >
-                  <div className="card">
-                    <img
-                      src={`/api/v1/product/product-photo/${p?._id}`}
-                      alt={p?.name}
-                      className="card-img-top"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">{p?.name}</h5>
-                      <p className="card-text">
-                        {truncateDescription(p?.description, 100)}
-                      </p>
+              {loading ? (
+                <>
+                  <div className="text-center">
+                    <div className="spinner-border" role="status">
+                      <span className="visually-hidden">Loading...</span>
                     </div>
                   </div>
-                </Link>
-              ))}
+                </>
+              ) : (
+                <>
+                  {products?.map((p) => (
+                    <Link
+                      to={`/dashboard/admin/product/${p?.slug}`}
+                      key={p._id}
+                      className="product-link"
+                    >
+                      <div className="card">
+                        <img
+                          src={`/api/v1/product/product-photo/${p?._id}`}
+                          alt={p?.name}
+                          className="card-img-top"
+                        />
+                        <div className="card-body">
+                          <h5 className="card-title">{p?.name}</h5>
+                          <p className="card-text">
+                            {truncateDescription(p?.description, 100)}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </div>

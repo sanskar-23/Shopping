@@ -12,6 +12,7 @@ const CreateCategory = () => {
   const [visible, setVisible] = useState(false);
   const [selected, setSelected] = useState(null);
   const [updatedName, setUpdatedName] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,9 +36,11 @@ const CreateCategory = () => {
   // get all categories
   const getAllCategory = async () => {
     try {
+      setLoading(true);
       const { data } = await axios.get("/api/v1/category/get-category");
       if (data?.success) {
         setCategories(data?.category);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -105,43 +108,56 @@ const CreateCategory = () => {
                 setValue={setName}
               />
             </div>
-            <div className="table-responsive">
-              <table className="table table-striped table-bordered">
-                <thead className="thead-dark">
-                  <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {categories &&
-                    categories.length > 0 &&
-                    categories.map((c, index) => (
-                      <tr key={c?._id || index}>
-                        <td>{c?.name}</td>
-                        <td>
-                          <button
-                            className="btn btn-sm btn-primary me-2"
-                            onClick={() => {
-                              setVisible(true);
-                              setUpdatedName(c.name);
-                              setSelected(c);
-                            }}
-                          >
-                            Edit
-                          </button>
-                          <button
-                            className="btn btn-sm btn-danger"
-                            onClick={() => handleDelete(c?._id)}
-                          >
-                            Delete
-                          </button>
-                        </td>
+            {loading ? (
+              <>
+                <div className="text-center">
+                  <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="table-responsive">
+                  <table className="table table-striped table-bordered">
+                    <thead className="thead-dark">
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Actions</th>
                       </tr>
-                    ))}
-                </tbody>
-              </table>
-            </div>
+                    </thead>
+                    <tbody>
+                      {categories &&
+                        categories.length > 0 &&
+                        categories.map((c, index) => (
+                          <tr key={c?._id || index}>
+                            <td>{c?.name}</td>
+                            <td>
+                              <button
+                                className="btn btn-sm btn-primary me-2"
+                                onClick={() => {
+                                  setVisible(true);
+                                  setUpdatedName(c.name);
+                                  setSelected(c);
+                                }}
+                              >
+                                Edit
+                              </button>
+                              <button
+                                className="btn btn-sm btn-danger"
+                                onClick={() => handleDelete(c?._id)}
+                              >
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            )}
+
             <Modal
               onCancel={() => setVisible(false)}
               footer={null}

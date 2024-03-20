@@ -164,49 +164,61 @@ const HomePage = () => {
           <div className="col-md-9">
             <h1 className="text-center"> All Products List</h1>
             <div className="grid-container">
-              {products?.map((p) => (
-                <div className="product-link" key={p._id}>
-                  <div className="card">
-                    <img
-                      src={`/api/v1/product/product-photo/${p?._id}`}
-                      alt={p?.name}
-                      className="card-img-top"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">{p?.name}</h5>
-                      <h5 className="card-title card-price">
-                        {p?.price.toLocaleString("en-US", {
-                          style: "currency",
-                          currency: "USD",
-                        })}
-                      </h5>
-                      <p className="card-text">
-                        {truncateDescription(p?.description, 100)}
-                      </p>
-
-                      <button
-                        className="btn btn-info m-1"
-                        onClick={() => navigate(`/product/${p?.slug}`)}
-                      >
-                        More Details
-                      </button>
-                      <button
-                        className="btn btn-dark ms-2"
-                        onClick={() => {
-                          setCart([...cart, p]);
-                          localStorage.setItem(
-                            "cart",
-                            JSON.stringify([...cart, p])
-                          );
-                          toast.success("Item Added to Cart");
-                        }}
-                      >
-                        ADD TO CART
-                      </button>
+              {loading ? (
+                <>
+                  <div className="text-center">
+                    <div className="spinner-border" role="status">
+                      <span className="visually-hidden">Loading...</span>
                     </div>
                   </div>
-                </div>
-              ))}
+                </>
+              ) : (
+                <>
+                  {products?.map((p) => (
+                    <div className="product-link" key={p._id}>
+                      <div className="card">
+                        <img
+                          src={`/api/v1/product/product-photo/${p?._id}`}
+                          alt={p?.name}
+                          className="card-img-top"
+                        />
+                        <div className="card-body">
+                          <h5 className="card-title">{p?.name}</h5>
+                          <h5 className="card-title card-price">
+                            {p?.price.toLocaleString("en-US", {
+                              style: "currency",
+                              currency: "USD",
+                            })}
+                          </h5>
+                          <p className="card-text">
+                            {truncateDescription(p?.description, 100)}
+                          </p>
+
+                          <button
+                            className="btn btn-info m-1"
+                            onClick={() => navigate(`/product/${p?.slug}`)}
+                          >
+                            More Details
+                          </button>
+                          <button
+                            className="btn btn-dark ms-2"
+                            onClick={() => {
+                              setCart([...cart, p]);
+                              localStorage.setItem(
+                                "cart",
+                                JSON.stringify([...cart, p])
+                              );
+                              toast.success("Item Added to Cart");
+                            }}
+                          >
+                            ADD TO CART
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
           </div>
           <div className="mt-3 text-center mb-3">

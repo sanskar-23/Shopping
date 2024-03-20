@@ -12,6 +12,7 @@ const ProductDetails = () => {
   const [product, setProduct] = useState({});
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [cart, setCart] = useCart();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (params?.slug) getProduct();
@@ -19,11 +20,13 @@ const ProductDetails = () => {
 
   const getProduct = async () => {
     try {
+      setLoading(true);
       const { data } = await axios.get(
         `/api/v1/product/get-product/${params.slug}`
       );
       setProduct(data?.product);
       getSimilarProduct(data?.product?._id, data?.product?.category?._id);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -31,10 +34,12 @@ const ProductDetails = () => {
 
   const getSimilarProduct = async (pid, cid) => {
     try {
+      setLoading(true);
       const { data } = await axios.get(
         `/api/v1/product/related-product/${pid}/${cid}`
       );
       setRelatedProducts(data?.products);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -74,56 +79,68 @@ const ProductDetails = () => {
       </div>
       <hr className="my-5" />
       <div className="container mt-4">
-        {relatedProducts.length > 0 && (
+        {loading ? (
           <>
-            <h2 className="text-primary  text-center">Similar Products</h2>
-            <div className="row">
-              {relatedProducts?.map((p) => (
-                <div className="col-md-4" key={p._id}>
-                  <div className="product-link">
-                    <div className="card mb-2">
-                      <img
-                        src={`/api/v1/product/product-photo/${p?._id}`}
-                        alt={p?.name}
-                        className="card-img-top"
-                      />
-                      <div className="card-body">
-                        <h5 className="card-title">{p?.name}</h5>
-                        <h5 className="card-title card-price">
-                          {p?.price.toLocaleString("en-US", {
-                            style: "currency",
-                            currency: "USD",
-                          })}
-                        </h5>
-                        <p className="card-text">
-                          {truncateDescription(p?.description, 100)}
-                        </p>
+            <div className="text-center">
+              <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            {relatedProducts.length > 0 && (
+              <>
+                <h2 className="text-primary  text-center">Similar Products</h2>
+                <div className="row">
+                  {relatedProducts?.map((p) => (
+                    <div className="col-md-4" key={p._id}>
+                      <div className="product-link">
+                        <div className="card mb-2">
+                          <img
+                            src={`/api/v1/product/product-photo/${p?._id}`}
+                            alt={p?.name}
+                            className="card-img-top"
+                          />
+                          <div className="card-body">
+                            <h5 className="card-title">{p?.name}</h5>
+                            <h5 className="card-title card-price">
+                              {p?.price.toLocaleString("en-US", {
+                                style: "currency",
+                                currency: "USD",
+                              })}
+                            </h5>
+                            <p className="card-text">
+                              {truncateDescription(p?.description, 100)}
+                            </p>
 
-                        <button
-                          className="btn btn-info m-1"
-                          onClick={() => navigate(`/product/${p?.slug}`)}
-                        >
-                          More Details
-                        </button>
-                        <button
-                          className="btn btn-dark ms-2"
-                          onClick={() => {
-                            setCart([...cart, p]);
-                            localStorage.setItem(
-                              "cart",
-                              JSON.stringify([...cart, p])
-                            );
-                            toast.success("Item Added to Cart");
-                          }}
-                        >
-                          ADD TO CART
-                        </button>
+                            <button
+                              className="btn btn-info m-1"
+                              onClick={() => navigate(`/product/${p?.slug}`)}
+                            >
+                              More Details
+                            </button>
+                            <button
+                              className="btn btn-dark ms-2"
+                              onClick={() => {
+                                setCart([...cart, p]);
+                                localStorage.setItem(
+                                  "cart",
+                                  JSON.stringify([...cart, p])
+                                );
+                                toast.success("Item Added to Cart");
+                              }}
+                            >
+                              ADD TO CART
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            )}
           </>
         )}
       </div>
