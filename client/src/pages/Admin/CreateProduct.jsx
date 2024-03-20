@@ -19,7 +19,6 @@ const CreateProduct = () => {
   const [shipping, setShipping] = useState("");
   const [photo, setPhoto] = useState("");
 
-  // get all categories
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get("/api/v1/category/get-category");

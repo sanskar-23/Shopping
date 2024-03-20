@@ -33,7 +33,7 @@ const Products = () => {
   }, []);
 
   return (
-    <Layout>
+    <Layout title={"Dashboard - All Products"}>
       <div className="container-fluid mt-3">
         <div className="row">
           <div className="col-md-3">

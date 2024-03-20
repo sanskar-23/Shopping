@@ -50,7 +50,6 @@ const CartPage = () => {
     }
   };
 
-  //get payment gateway token
   const getToken = async () => {
     try {
       const { data } = await axios.get("/api/v1/product/braintree/token");
@@ -85,7 +84,7 @@ const CartPage = () => {
   };
 
   return (
-    <Layout>
+    <Layout title={"Cart Page"}>
       <div className="container-fluid mt-3">
         <div className="row">
           <div className="col-md-12">
@@ -200,9 +199,6 @@ const CartPage = () => {
                     <DropIn
                       options={{
                         authorization: clientToken,
-                        // paypal: {
-                        //   flow: "vault",
-                        // },
                       }}
                       onInstance={(instance) => setInstance(instance)}
                     />

@@ -3,7 +3,6 @@ import userModel from "../models/userModel.js";
 import { hashPassword, comparePassword } from "./../helpers/authHelper.js";
 import JWT from "jsonwebtoken";
 
-// REGISTER || POST
 export const registerController = async (req, res) => {
   try {
     const { name, email, password, phone, address, answer } = req.body;
@@ -14,19 +13,17 @@ export const registerController = async (req, res) => {
     if (!address) return res.send({ message: "Address is Required" });
     if (!answer) return res.send({ message: "Answer is Required" });
 
-    // checking user
     const existingUser = await userModel.findOne({ email });
-    // existing user
+
     if (existingUser) {
       return res.status(200).send({
         success: false,
         message: "Already registered with this email",
       });
     }
-    // register user
+
     const hashedPassword = await hashPassword(password);
 
-    // saving the new registered user
     const user = await new userModel({
       name,
       email,
@@ -51,7 +48,6 @@ export const registerController = async (req, res) => {
   }
 };
 
-// LOGIN || POST
 export const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -79,8 +75,6 @@ export const loginController = async (req, res) => {
       });
     }
 
-    //token
-
     const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
@@ -106,8 +100,6 @@ export const loginController = async (req, res) => {
   }
 };
 
-// forgot password controller
-
 export const forgotPasswordController = async (req, res) => {
   try {
     const { email, answer, newPassword } = req.body;
@@ -120,9 +112,9 @@ export const forgotPasswordController = async (req, res) => {
     if (!newPassword) {
       res.status(400).send({ message: "New Password is required" });
     }
-    //check
+
     const user = await userModel.findOne({ email, answer });
-    //validation
+
     if (!user) {
       return res.status(404).send({
         success: false,
@@ -144,7 +136,7 @@ export const forgotPasswordController = async (req, res) => {
     });
   }
 };
-// test controller
+
 export const testController = async (req, res) => {
   res.send({
     message: "Protected Route",

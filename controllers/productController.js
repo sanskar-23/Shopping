@@ -15,7 +15,6 @@ var gateway = new braintree.BraintreeGateway({
   privateKey: process.env.BRAINTREE_PRIVATE_KEY,
 });
 
-// For Creating Product API
 export const createProductController = async (req, res) => {
   try {
     const { name, description, price, category, quantity, shipping } =
@@ -55,7 +54,6 @@ export const createProductController = async (req, res) => {
   }
 };
 
-// For getting all Product API
 export const getProductController = async (req, res) => {
   try {
     const products = await productModel
@@ -80,7 +78,6 @@ export const getProductController = async (req, res) => {
   }
 };
 
-// for getting Single Product API
 export const getSingleProductController = async (req, res) => {
   try {
     const product = await productModel
@@ -102,7 +99,6 @@ export const getSingleProductController = async (req, res) => {
   }
 };
 
-// For getting a Photo API
 export const productPhotoController = async (req, res) => {
   try {
     const product = await productModel.findById(req.params.pid).select("photo");
@@ -120,7 +116,6 @@ export const productPhotoController = async (req, res) => {
   }
 };
 
-// For deleting a Product API
 export const deleteProductController = async (req, res) => {
   try {
     await productModel.findByIdAndDelete(req.params.pid).select("-photo");
@@ -138,13 +133,12 @@ export const deleteProductController = async (req, res) => {
   }
 };
 
-// for updating a product API
 export const updateProductController = async (req, res) => {
   try {
     const { name, description, price, category, quantity, shipping } =
       req.fields;
     const { photo } = req.files;
-    //alidation
+
     switch (true) {
       case !name:
         return res.status(500).send({ error: "Name is Required" });

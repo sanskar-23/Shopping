@@ -2,12 +2,12 @@ import React from "react";
 import Layout from "../../components/Layout/Layout";
 import AdminMenu from "../../components/Layout/AdminMenu";
 import { useAuth } from "../../context/auth";
-import "./AdminDashboard.css"; // Import custom CSS for styling
+import "./AdminDashboard.css";
 
 const AdminDashboard = () => {
   const [auth] = useAuth();
   return (
-    <Layout>
+    <Layout title={"Admin Dashboard"}>
       <div className="container-fluid mt-3">
         <div className="row">
           <div className="col-md-3">

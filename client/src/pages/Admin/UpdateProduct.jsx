@@ -21,7 +21,6 @@ const UpdateProduct = () => {
   const [photo, setPhoto] = useState("");
   const [id, setId] = useState("");
 
-  // get Single Product
   const getSingleProduct = async () => {
     try {
       const { data } = await axios.get(
@@ -52,7 +51,6 @@ const UpdateProduct = () => {
     // eslint-disable-next-line
   }, []);
 
-  // get all categories
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get("/api/v1/category/get-category");

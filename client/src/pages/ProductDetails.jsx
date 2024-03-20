@@ -53,7 +53,7 @@ const ProductDetails = () => {
   };
 
   return (
-    <Layout>
+    <Layout title={product?.name}>
       <div className="container mt-5 product-details-container">
         <div className="row">
           <div className="col-md-6">
