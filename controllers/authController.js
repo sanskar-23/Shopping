@@ -187,7 +187,8 @@ export const getOrdersController = async (req, res) => {
     const orders = await orderModel
       .find({ buyer: req.user._id })
       .populate("products", "-photo")
-      .populate("buyer", "name");
+      .populate("buyer", "name")
+      .sort({ createdAt: "-1" });
     res.json(orders);
   } catch (error) {
     console.log(error);
@@ -195,6 +196,54 @@ export const getOrdersController = async (req, res) => {
       success: false,
       message: "Error while Getting Products",
       error,
+    });
+  }
+};
+export const getAllOrdersController = async (req, res) => {
+  try {
+    const orders = await orderModel
+      .find({})
+      .populate("products", "-photo")
+      .populate("buyer", "name");
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error WHile Geting Orders",
+      error,
+    });
+  }
+};
+
+export const orderStatusController = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const { status } = req.body;
+    const orders = await orderModel.findByIdAndUpdate(
+      orderId,
+      { status },
+      { new: true }
+    );
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Cannot Change Status of Order",
+    });
+  }
+};
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await userModel.find({ role: 0 });
+    res.json(users);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Fetching all Users",
     });
   }
 };
