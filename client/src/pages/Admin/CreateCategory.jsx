@@ -33,7 +33,6 @@ const CreateCategory = () => {
     }
   };
 
-  // get all categories
   const getAllCategory = async () => {
     try {
       setLoading(true);
@@ -52,7 +51,6 @@ const CreateCategory = () => {
     getAllCategory();
   }, []);
 
-  // handle update
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
@@ -74,7 +72,6 @@ const CreateCategory = () => {
     }
   };
 
-  // handle update
   const handleDelete = async (pId) => {
     try {
       const { data } = await axios.delete(

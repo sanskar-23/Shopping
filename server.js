@@ -16,12 +16,10 @@ const PORT = process.env.PORT || 8000;
 
 connectDB();
 
-// Middlewares
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cors());
 
-//routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/category", categoryRoutes);
 app.use("/api/v1/product", productRoutes);
